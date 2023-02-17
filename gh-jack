@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+# Copyright (c) 2016 Damien Tardy-Panis
+#
+# This file is subject to the terms and conditions defined in
+# file 'LICENSE', which is part of this source code package.
+#
+# Main program to generate the Github's contributions board work
+
+SCRIPT_DIR=$( dirname "$( readlink --canonicalize "$0" )" )
+
+export LC_ALL=en_US.UTF-8
+
+. "${SCRIPT_DIR}/lib/general.sh"
+. "${SCRIPT_DIR}/lib/validation.sh"
+. "${SCRIPT_DIR}/lib/work.sh"
+
+general::init_variables
+general::parse_inputs "$@"
+general::validate_inputs
+
+work::define_multiplier
+work::define_start_date
+work::init_repository
+work::commit_all
+
+exit 0
